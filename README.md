@@ -11,81 +11,107 @@ A Claude Code skill for generating premium, award-gallery-inspired landing pages
 
 ## What This Skill Does
 
-Given a user brief, generates a complete creative direction package:
+Given a brief, the skill:
 
-1. **DIRECTION.md** — Design thesis, mood, colors, typography, references
-2. **MOTION.md** — Motion system with GSAP patterns and timing
-3. **ASSETS.md** — Asset requirements and specifications
-4. **PAGE_PLAN.md** — Page structure with sections and components
-5. **TOKENS.json** — Design tokens for code injection
-6. **QA.md** — Accessibility and performance checklist
-7. **Code Scaffold** — Working Next.js + Tailwind + GSAP project
+1. **Parses vibes** — extracts 2-3 vibe keywords (e.g., "luxury", "minimal")
+2. **Matches cluster** — uses vibe→cluster mapping to select a style cluster
+3. **Pulls references** — finds 2-3 Awwwards SOTM sites with matching tags
+
+Then generates:
+
+| Artifact | Purpose |
+|----------|---------|
+| **DIRECTION.md** | Design thesis, mood, colors, typography, references |
+| **MOTION.md** | Motion system with GSAP patterns and timing |
+| **ASSETS.md** | Asset requirements and specifications |
+| **PAGE_PLAN.md** | Page structure with sections and components |
+| **TOKENS.json** | Design tokens for CSS injection |
+| **QA.md** | Accessibility and performance checklist |
+
+Output goes to: `runs/[project-name]-[timestamp]/`
 
 ## Installation
-
-Copy this skill to your Claude Code skills directory:
 
 ```bash
 # Personal skills (available in all projects)
 cp -r .claude/skills/award-landing ~/.claude/skills/
 
-# Or keep it as a project skill (this repo only)
-# Already in .claude/skills/award-landing/
+# Or keep as project skill (this repo only)
 ```
 
 ## Directory Structure
 
 ```
 .claude/skills/award-landing/
-├── SKILL.md                    # Main skill instructions
+├── SKILL.md                    # Main skill (~660 lines)
 └── taxonomy/
     └── style_taxonomy.yaml     # 12 style cluster definitions
 ```
 
-> Planned additions: corpus dataset, Next.js scaffold template, and example output (see Roadmap).
+## Workflow
 
-## Style Clusters
+```
+Brief → Extract Vibes → Match Cluster → Pull References
+     → DIRECTION.md → MOTION.md → ASSETS.md → PAGE_PLAN.md
+     → TOKENS.json → QA.md → User builds scaffold
+```
 
-| Cluster | Description |
-|---------|-------------|
-| `minimal-saas` | Clean sans-serif, blue/purple accents, card-based |
-| `cinematic-hero` | Full-bleed video, dramatic type, slow fades |
-| `editorial-magazine` | Serif headlines, asymmetric grids |
-| `playful-brand` | Rounded shapes, bouncy animations, bright colors |
-| `futuristic-tech` | Gradients, blur effects, dark mode |
-| `luxury-premium` | Thin serifs, gold accents, generous whitespace |
-| `brutal-raw` | Monospace, exposed grid, anti-aesthetic |
-| `artisanal-craft` | Hand-drawn elements, warm colors |
-| `experimental-art` | Rule-breaking, unusual interactions |
-| `technical-data` | Data viz, precise grids |
-| `product-hero` | Hero product shot, minimal UI |
-| `agency-portfolio` | Case study focus, horizontal scroll |
+**Example:** Brief "premium fintech dashboard for Gen Z" → vibes: `futuristic` + `minimal` → cluster: `futuristic-tech` → refs: Vercel, Zentry
 
-## Tech Stack (Generated Scaffold)
+## Style Vocabulary
 
-- **Next.js 14+** with App Router
-- **Tailwind CSS v4** with `@theme` directive for tokens
+### 12 Vibes
+`cinematic` · `editorial` · `playful` · `brutal` · `minimal` · `luxury` · `futuristic` · `artisanal` · `technical` · `experimental` · `bold` · `ethereal`
+
+### 12 Clusters
+| Cluster | Vibes | Exemplars |
+|---------|-------|-----------|
+| `minimal-saas` | minimal + technical | Linear, Raycast, Height |
+| `cinematic-hero` | cinematic + luxury | Studio Santi, Locomotive |
+| `editorial-magazine` | editorial + minimal | Pentagram, Readymag |
+| `playful-brand` | playful + bold | Figma, Arc Browser |
+| `futuristic-tech` | futuristic + technical | Vercel, Framer |
+| `luxury-premium` | luxury + minimal | Bang & Olufsen, Aesop |
+| `brutal-raw` | brutal + minimal | Sagmeister Walsh |
+| `artisanal-craft` | artisanal + editorial | Allbirds, Patagonia |
+| `experimental-art` | experimental + bold | Resn, Teenage Engineering |
+| `technical-data` | technical + minimal | Stripe, Webflow |
+| `product-hero` | cinematic + minimal | Apple, Sonos, Tesla |
+| `agency-portfolio` | bold + cinematic | Basic Agency, Fantasy |
+
+### 8 Motion Regimes
+`subtle` · `kinetic-type` · `scroll-scene` · `immersive` · `parallax` · `mixed` · `cursor-led` · `minimal-motion`
+
+## Tech Stack (User Builds)
+
+The skill generates direction + tokens. User must:
+
+1. `npx create-next-app@latest [name] --typescript --tailwind --app`
+2. `npm install gsap @gsap/react lenis`
+3. Inject TOKENS.json into `globals.css` under `@theme { }`
+4. Source assets per ASSETS.md
+5. Run Lighthouse, test reduced motion
+
+Stack:
+- **Next.js 14+** App Router
+- **Tailwind CSS v4** with `@theme` directive
 - **GSAP + ScrollTrigger** for animations
 - **TypeScript** strict mode
-- **Accessibility** — reduced motion, skip links, WCAG AA contrast
 
-## Example Output
+## Key Features
 
-Example artifact bundle + scaffold will be published after the template is finalized (tracked in Roadmap).
-
-## Roadmap
-
-1. **Corpus dataset** — compile `corpus/sites.csv` with the 50 referenced Awwwards winners.
-2. **Machine-readable taxonomy** — export `taxonomy/clusters.json` for retrieval workflows.
-3. **Code scaffold template** — add `templates/next-scaffold/` (Next.js + Tailwind + GSAP) referenced in SKILL.md.
-4. **Demo output** — capture a complete run in `examples/demo-001/` for validation and onboarding.
+- **Vibe→Cluster Mapping** — deterministic style matching with fallback rules
+- **Font Pairing Table** — 8 vibes mapped to Display/Body/Mono fonts
+- **15 Reference Sites** — Awwwards SOTM winners with signature techniques
+- **13 Motion Patterns** — GSAP signatures for common interactions
+- **Completed Example** — "Maison Horologique" luxury watch brand
 
 ## Non-Goals
 
-- Not a general UI kit
+- Not a UI component library
 - Not WebGL/Three.js (unless explicitly requested)
-- Not for login/forms (keep those conventional)
-- Not scraping the web (curated corpus only)
+- Not production-ready code — direction + scaffold only
+- Not scraping — curated corpus only
 
 ## License
 

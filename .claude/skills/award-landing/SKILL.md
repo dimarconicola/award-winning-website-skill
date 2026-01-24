@@ -1,7 +1,6 @@
 ---
 name: award-landing
 description: Generate premium, award-gallery-inspired landing pages. Use when creating a new marketing landing page, redesigning a site with high-end aesthetics, or when the user mentions Awwwards, FWA, or "award-winning design."
-disable-model-invocation: true
 allowed-tools: Read, Write, Glob, Grep, Bash(mkdir:*), Bash(cp:*)
 ---
 
@@ -20,6 +19,10 @@ Generate premium landing pages inspired by Awwwards/FWA galleries. This skill pr
 ## Workflow (7 Steps)
 
 1. **Ingest Brief** — Parse brand, audience, vibe, constraints. Match against Reference Corpus + Style Clusters.
+   - Extract 2-3 vibe keywords from brief (e.g., "premium", "techy", "playful")
+   - Find clusters whose keywords overlap; pick the best-fit cluster
+   - Pull 2-3 corpus sites with matching tags as Reference DNA
+   - **Example:** Brief "premium fintech dashboard for Gen Z" → vibes: `futuristic` + `minimal` → cluster: `futuristic-tech` → refs: Vercel, Zentry
 2. **DIRECTION.md** — Creative direction (template in Section 5)
 3. **MOTION.md** — Motion system (patterns in Section 4)
 4. **ASSETS.md** — Asset requirements (template in Section 5)
@@ -59,6 +62,8 @@ Generate premium landing pages inspired by Awwwards/FWA galleries. This skill pr
 | `cursor-led` | Cursor drives motion | Mouse position tracking, magnetic effects |
 | `minimal-motion` | Near-static, content-first | Instant or 100ms fades only |
 
+> Regimes can combine (e.g., `scroll-scene` + `cursor-led`). Pick a primary and note secondary in MOTION.md.
+
 ### Materiality
 | Label | Characteristics |
 |-------|-----------------|
@@ -72,6 +77,24 @@ Generate premium landing pages inspired by Awwwards/FWA galleries. This skill pr
 ---
 
 ## 2. Style Clusters
+
+### Vibe → Cluster Mapping
+| Primary Vibe | Secondary Vibe | → Cluster |
+|--------------|----------------|----------|
+| `minimal` | `technical` | minimal-saas |
+| `cinematic` | `luxury` | cinematic-hero |
+| `editorial` | `minimal` | editorial-magazine |
+| `playful` | `bold` | playful-brand |
+| `futuristic` | `technical` | futuristic-tech |
+| `luxury` | `minimal` | luxury-premium |
+| `brutal` | `minimal` | brutal-raw |
+| `artisanal` | `editorial` | artisanal-craft |
+| `experimental` | `bold` | experimental-art |
+| `technical` | `minimal` | technical-data |
+| `cinematic` | `minimal` | product-hero |
+| `bold` | `cinematic` | agency-portfolio |
+
+> **Fallback:** If no exact match, pick cluster by primary vibe alone. If primary is ambiguous, prefer the cluster with more exemplars matching the brief's industry.
 
 ### minimal-saas
 Clean, restrained product pages. Geometric sans, neutral + single accent, subtle motion.
@@ -125,36 +148,23 @@ Case study focus, distinctive display type, work-forward.
 
 ## 3. Reference Corpus — Awwwards SOTM Winners
 
-### Recent Winners (2024-2025)
 | Site | Studio | Tags | Signature Technique |
 |------|--------|------|---------------------|
-| MindMarket | Louis Paquet | cinematic, experimental | WebGL particle morphing on scroll |
-| Lando Norris | OFF+BRAND | cinematic, product-hero | Full-bleed video with kinetic type |
-| Ponpon Mania | Patrick Heng | playful, experimental | 3D candy physics with cursor |
-| Terminal Industries | REJOUICE | minimal, technical | ASCII art hero |
+| Igloo Inc (SOTY 2024) | abeto | minimal, luxury | Seamless shared-element transitions |
+| Apple AirPods Pro | Apple | minimal, product-hero | Scroll-driven product rotation |
+| Bruno Simon Portfolio (SOTY) | Bruno Simon | experimental, playful | 3D car driving on terrain |
 | Cartier Watches & Wonders | Immersive Garden | luxury, cinematic | Light ray product reveal |
-| Tracing Art | Resn | experimental, artisanal | Generative brush strokes |
-| Montfort | Immersive Garden | luxury, cinematic | Horizontal scroll with depth |
-| Navigate | Resn | experimental, futuristic | 3D globe data visualization |
-| Siena Film Foundation | Niccolò Miranda | editorial, cinematic | Paper-fold transitions |
-| Dropbox Brand | Daybreak Studio | playful, editorial | Modular grid micro-animations |
-| Immersive Garden | Immersive Garden | agency-portfolio | Case study depth parallax |
-| Zentry | Resn | futuristic, experimental | Gaming HUD interface |
-| Igloo Inc (SOTY) | abeto | minimal, luxury | Seamless shared-element transitions |
-| Slosh Seltzer | Active Theory | playful, product-hero | Liquid physics simulation |
-| Active Theory V6 | Active Theory | agency-portfolio | WebGL scene transitions |
-| The Fabulous Cartier Journey | Merci Michel | luxury, cinematic | 360° WebGL jewelry viewer |
-
-### Classic Winners (2020-2023)
-| Site | Studio | Tags | Signature Technique |
-|------|--------|------|---------------------|
 | Lusion v3 (SOTY) | Lusion | experimental, futuristic | WebGL fluid mouse distortion |
 | Locomotive® | Locomotive | agency-portfolio | Smooth scroll + horizontal sections |
+| MindMarket | Louis Paquet | cinematic, experimental | WebGL particle morphing on scroll |
+| Montfort | Immersive Garden | luxury, cinematic | Horizontal scroll with depth |
+| Ponpon Mania | Patrick Heng | playful, experimental | 3D candy physics with cursor |
+| Siena Film Foundation | Niccolò Miranda | editorial, cinematic | Paper-fold transitions |
+| Slosh Seltzer | Active Theory | playful, product-hero | Liquid physics simulation |
+| Terminal Industries | REJOUICE | minimal, technical | ASCII art hero |
+| The Fabulous Cartier Journey | Merci Michel | luxury, cinematic | 360° WebGL jewelry viewer |
 | The Hall of Zero Limits | Dogstudio | cinematic, experimental | Scroll-driven 3D environment |
-| Bruno Simon Portfolio (SOTY) | Bruno Simon | experimental, playful | 3D car driving on terrain |
-| Persepolis Reimagined (SOTY) | Monks | cinematic, experimental | Historical 3D reconstruction |
-| Apple AirPods Pro | Apple | minimal, product-hero | Scroll-driven product rotation |
-| 20 Years of Xbox Museum | Active Theory | cinematic, playful | 3D museum walkthrough |
+| Zentry | Resn | futuristic, experimental | Gaming HUD interface |
 
 ---
 
@@ -240,6 +250,23 @@ All patterns MUST check `prefers-reduced-motion`. Replace animations with instan
 |------|---------------|
 | [Site 1] | Specific element |
 | [Site 2] | Specific element |
+
+### Font Pairing by Vibe
+| Vibe | Display | Body | Mono |
+|------|---------|------|------|
+| luxury | Cormorant, Playfair | Inter, Söhne | JetBrains Mono |
+| minimal | Geist, Inter | Geist, Inter | Geist Mono |
+| editorial | Fraunces, Newsreader | Source Serif, Lora | IBM Plex Mono |
+| playful | Bricolage Grotesque, Satoshi | DM Sans, Nunito | Space Mono |
+| brutal | JetBrains Mono, Space Grotesk | Space Grotesk | JetBrains Mono |
+| futuristic | Clash Display, Syne | Inter, Outfit | Fira Code |
+| artisanal | Fraunces, Lora | Source Serif, Merriweather | IBM Plex Mono |
+| cinematic | Bebas Neue, Oswald | Inter, Manrope | JetBrains Mono |
+
+## Light vs Dark Mode
+- **Dark:** Deep bg (#0a-#12), light fg, accent pops. Good for cinematic, luxury, futuristic.
+- **Light:** Off-white bg (#f5-#fff), dark fg, muted accent. Good for editorial, minimal, artisanal.
+- If supporting both, define separate neutral scales and toggle via `.dark` class.
 ```
 
 #### Completed Example: Maison Horologique
@@ -596,33 +623,22 @@ Replace scroll-pinned with static layouts. Keep 0.3s opacity fades. Show static 
 }
 ```
 
-### Tailwind v4 Theme
-Inject TOKENS.json into `globals.css`:
+### Implementation Notes
 
-```css
-@import "tailwindcss";
+1. **Inject TOKENS.json → globals.css** — Output values as CSS variables under `@theme { }`
+2. **GSAP Context** — Wrap animations in `gsap.context()` for React cleanup
+3. **Reduced Motion** — Check `prefers-reduced-motion`; replace with instant states
+4. **Skip Link** — `<a href="#main" class="sr-only focus:not-sr-only">Skip to content</a>`
+5. **Dark/Light** — Toggle `.dark` class on `<html>`, persist to localStorage
 
-@theme {
-  --color-bg: #0a0a0f;
-  --color-fg: #ffffff;
-  --color-accent: #3b82f6;
-  --color-neutral-0: #12121a;
-  /* ... remaining tokens ... */
-  
-  --font-sans: Inter, system-ui, sans-serif;
-  --font-display: /* display font */;
-  
-  --duration-fast: 150ms;
-  --duration-slow: 500ms;
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
-}
-```
+### User Must Do (Manual Steps)
 
-### Essential Patterns
-- **Reduced Motion:** Always check `prefers-reduced-motion`
-- **Skip Link:** `<a href="#main" class="skip-link">Skip to content</a>`
-- **Dark/Light:** CSS variables with `.dark` class toggle, localStorage preference
-- **GSAP Context:** Always use `gsap.context()` for React cleanup
+1. **Initialize project:** `npx create-next-app@latest [name] --typescript --tailwind --app`
+2. **Install deps:** `npm install gsap @gsap/react lenis`
+3. **Source assets:** Hero media, product photography, icons per ASSETS.md
+4. **Add fonts:** Download from Google Fonts or license commercial fonts
+5. **Run dev server:** `npm run dev` and iterate
+6. **Validate:** Run Lighthouse, check contrast, test reduced motion
 
 ---
 
