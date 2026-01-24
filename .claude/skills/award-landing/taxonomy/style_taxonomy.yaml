@@ -12,27 +12,31 @@ vocabulary:
     - playful
     - brutal
     - minimal
+    - luxury
     - futuristic
     - artisanal
-    - luxury
     - technical
     - experimental
+    - bold
+    - ethereal
 
   motion_regimes:
     - subtle
     - kinetic-type
     - scroll-scene
-    - cursor-led
+    - immersive
+    - parallax
     - mixed
+    - cursor-led
     - minimal-motion
 
   materiality:
-    - matte
-    - glossy-chrome
-    - grain-film
-    - clean-digital
-    - textured
-    - mixed
+    - glass
+    - paper
+    - metal
+    - fabric
+    - neon
+    - organic
 
 # Style clusters
 clusters:

@@ -42,6 +42,8 @@ Generate premium landing pages inspired by Awwwards/FWA galleries. This skill pr
 | `luxury` | Rich textures, gold/champagne accents, slow elegance |
 | `futuristic` | Gradients, glassmorphism, tech-forward aesthetics |
 | `artisanal` | Hand-crafted feel, organic textures, warm and human |
+| `technical` | Systematic, data-forward, precision-driven communication |
+| `experimental` | Boundary-pushing, genre-bending, unexpected combinations |
 | `bold` | Oversized type, high contrast, unapologetic presence |
 | `ethereal` | Soft gradients, floating elements, dreamlike atmosphere |
 
@@ -106,6 +108,10 @@ Handmade, organic textures, warm palettes, humanist type.
 ### experimental-art
 Boundary-pushing, unusual layouts, generative, cursor-led.
 - **Exemplars:** Sagmeister Walsh, Resn, Teenage Engineering
+
+### technical-data
+Information-dense experiences for engineers and analysts, systematic and precise.
+- **Exemplars:** Stripe, Webflow, Intercom, Google Cloud
 
 ### product-hero
 Product-centric with feature-benefit structure, conversion-optimized.

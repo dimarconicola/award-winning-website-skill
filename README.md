@@ -38,16 +38,11 @@ cp -r .claude/skills/award-landing ~/.claude/skills/
 ```
 .claude/skills/award-landing/
 ├── SKILL.md                    # Main skill instructions
-├── corpus/
-│   └── sites.csv               # 50 curated reference sites
-├── taxonomy/
-│   ├── style_taxonomy.yaml     # 12 style cluster definitions
-│   └── clusters.json           # Machine-readable clusters
-├── templates/
-│   └── next-scaffold/          # Base Next.js template
-└── examples/
-    └── demo-001/               # Example output (Flux)
+└── taxonomy/
+    └── style_taxonomy.yaml     # 12 style cluster definitions
 ```
+
+> Planned additions: corpus dataset, Next.js scaffold template, and example output (see Roadmap).
 
 ## Style Clusters
 
@@ -76,9 +71,14 @@ cp -r .claude/skills/award-landing ~/.claude/skills/
 
 ## Example Output
 
-See [.claude/skills/award-landing/examples/demo-001/](.claude/skills/award-landing/examples/demo-001/) for a complete example:
-- Flux AI Design Tool landing page
-- All 6 artifacts + working Next.js scaffold
+Example artifact bundle + scaffold will be published after the template is finalized (tracked in Roadmap).
+
+## Roadmap
+
+1. **Corpus dataset** — compile `corpus/sites.csv` with the 50 referenced Awwwards winners.
+2. **Machine-readable taxonomy** — export `taxonomy/clusters.json` for retrieval workflows.
+3. **Code scaffold template** — add `templates/next-scaffold/` (Next.js + Tailwind + GSAP) referenced in SKILL.md.
+4. **Demo output** — capture a complete run in `examples/demo-001/` for validation and onboarding.
 
 ## Non-Goals
 
