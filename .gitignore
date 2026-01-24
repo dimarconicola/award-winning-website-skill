@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Skill directories - ignore node_modules and build outputs
+.claude/skills/*/examples/*/app/node_modules/
+.claude/skills/*/examples/*/app/.next/
+.claude/skills/*/templates/*/node_modules/
+.claude/skills/*/templates/*/.next/
+
+# Generated runs (when using the skill)
+runs/
+
+# Optional: keep runs but ignore large media
+*.mp4
+
+# Playwright
+playwright-report/
+test-results/
