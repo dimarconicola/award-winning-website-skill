@@ -1,117 +1,159 @@
 # Award-Winning Landing Page Skill
 
-A Claude Code skill for generating premium, award-gallery-inspired landing pages.
+A Claude Code skill for generating Awwwards-quality landing pages.
 
-## Quick Start
+## What It Does
 
-```bash
-# In Claude Code, invoke the skill:
-/award-landing "Brief describing your brand, product, and desired vibe"
-```
+Given a brief, Claude generates a landing page that could win Site of the Day. Not "nice" — award-winning.
 
-## What This Skill Does
-
-Given a brief, the skill:
-
-1. **Parses vibes** — extracts 2-3 vibe keywords (e.g., "luxury", "minimal")
-2. **Matches cluster** — uses vibe→cluster mapping to select a style cluster
-3. **Pulls references** — finds 2-3 Awwwards SOTM sites with matching tags
-
-Then generates:
-
-| Artifact | Purpose |
-|----------|---------|
-| **DIRECTION.md** | Design thesis, mood, colors, typography, references |
-| **MOTION.md** | Motion system with GSAP patterns and timing |
-| **ASSETS.md** | Asset requirements and specifications |
-| **PAGE_PLAN.md** | Page structure with sections and components |
-| **TOKENS.json** | Design tokens for CSS injection |
-| **QA.md** | Accessibility and performance checklist |
-
-Output goes to: `runs/[project-name]-[timestamp]/`
+The skill teaches Claude **design taste**: how to develop a singular concept, create signature moments, wield restraint for impact, and self-evaluate whether output is truly exceptional.
 
 ## Installation
 
-```bash
-# Personal skills (available in all projects)
-cp -r .claude/skills/award-landing ~/.claude/skills/
+Copy the skill folder to your Claude Code project:
 
-# Or keep as project skill (this repo only)
+```bash
+# Clone this repo
+git clone https://github.com/your-username/award-winning-website-skill.git
+
+# Copy to your project's .claude/skills/
+cp -r award-winning-website-skill/.claude/skills/award-landing your-project/.claude/skills/
 ```
 
-## Directory Structure
+Or install globally (available in all projects):
+
+```bash
+cp -r .claude/skills/award-landing ~/.claude/skills/
+```
+
+## Usage
+
+Just describe what you want:
+
+```
+"Build a landing page for a Swiss watch brand — luxury, timeless, precision"
+```
+
+```
+"Create a site for a developer productivity tool called Flux"
+```
+
+```
+"I need a playful landing page for a fitness app that gamifies workouts"
+```
+
+Claude will:
+1. Develop a concept from your brief
+2. Select appropriate vibes, clusters, and references
+3. Design a signature moment
+4. Generate complete Next.js code
+
+## The 4-Phase Process
+
+### Phase 1: Concept Extraction
+- What's the single truth about this brand?
+- What metaphor embodies it?
+- What feeling persists after the user leaves?
+- What's the signature moment?
+
+### Phase 2: Vocabulary Selection
+- Primary + secondary vibe (from 12 options)
+- Motion regime
+- Materiality
+- Style cluster
+- Reference DNA (2-3 Awwwards sites)
+
+### Phase 3: Hierarchy Decisions
+1. Typography (80% of visual impact)
+2. Layout rhythm
+3. Color restraint
+4. Motion philosophy
+5. Signature moment
+
+### Phase 4: Self-Evaluation
+- Can I describe the concept in 5 words?
+- Is there ONE moment users will screenshot?
+- Would every element survive "does this serve the concept?"
+
+## Skill Structure
 
 ```
 .claude/skills/award-landing/
-├── SKILL.md                    # Main skill (~660 lines)
-└── taxonomy/
-    └── style_taxonomy.yaml     # 12 style cluster definitions
+├── SKILL.md                 # Main entry point (208 lines)
+├── concepts/
+│   ├── THESIS.md            # Developing singular concepts
+│   ├── SIGNATURE.md         # Designing memorable moments
+│   └── TENSION.md           # Restraint and surprise
+├── taste/
+│   ├── TYPOGRAPHY.md        # Type-first design thinking
+│   └── EVALUATION.md        # Self-critique rubric
+├── reference/
+│   ├── VIBES.md             # 12 vibes + motion regimes
+│   ├── CLUSTERS.md          # 12 style clusters
+│   └── CORPUS.md            # 30+ Awwwards winners analyzed
+└── examples/
+    ├── MAISON.md            # Luxury watch brand
+    ├── FLUX.md              # Developer tool
+    └── BOUNCE.md            # Playful fitness app
 ```
 
-## Workflow
+## What Separates SOTD from "Good"
 
-```
-Brief → Extract Vibes → Match Cluster → Pull References
-     → DIRECTION.md → MOTION.md → ASSETS.md → PAGE_PLAN.md
-     → TOKENS.json → QA.md → User builds scaffold
-```
+1. **Singular concept, relentless execution** — ONE thing done unforgettably
+2. **Narrative choreography** — Motion directs attention through a story
+3. **The Signature Moment™** — One interaction users remember and share
+4. **Tension between restraint and surprise** — Quiet makes peaks land harder
+5. **Typography as primary material** — Type IS the design
+6. **Obsessive micro-details** — Every hover state is considered
+7. **Speed as luxury** — Instant interactions, 60fps scroll
 
-**Example:** Brief "premium fintech dashboard for Gen Z" → vibes: `futuristic` + `minimal` → cluster: `futuristic-tech` → refs: Vercel, Zentry
+## Output
+
+Claude generates:
+
+| Artifact | Purpose |
+|----------|---------|
+| **DIRECTION.md** | Design thesis, colors, typography, references |
+| **PAGE_PLAN.md** | Section structure, signature moment placement |
+| **Code** | Complete Next.js 14+ project |
+
+Tech stack:
+- Next.js 14+ (App Router)
+- Tailwind CSS
+- GSAP + ScrollTrigger
+- TypeScript
 
 ## Style Vocabulary
 
 ### 12 Vibes
-`cinematic` · `editorial` · `playful` · `brutal` · `minimal` · `luxury` · `futuristic` · `artisanal` · `technical` · `experimental` · `bold` · `ethereal`
+`minimal` · `cinematic` · `editorial` · `playful` · `brutal` · `luxury` · `futuristic` · `artisanal` · `experimental` · `bold` · `ethereal` · `technical`
 
 ### 12 Clusters
-| Cluster | Vibes | Exemplars |
-|---------|-------|-----------|
-| `minimal-saas` | minimal + technical | Linear, Raycast, Height |
-| `cinematic-hero` | cinematic + luxury | Studio Santi, Locomotive |
-| `editorial-magazine` | editorial + minimal | Pentagram, Readymag |
-| `playful-brand` | playful + bold | Figma, Arc Browser |
-| `futuristic-tech` | futuristic + technical | Vercel, Framer |
-| `luxury-premium` | luxury + minimal | Bang & Olufsen, Aesop |
-| `brutal-raw` | brutal + minimal | Sagmeister Walsh |
-| `artisanal-craft` | artisanal + editorial | Allbirds, Patagonia |
-| `experimental-art` | experimental + bold | Resn, Teenage Engineering |
-| `technical-data` | technical + minimal | Stripe, Webflow |
-| `product-hero` | cinematic + minimal | Apple, Sonos, Tesla |
-| `agency-portfolio` | bold + cinematic | Basic Agency, Fantasy |
+| Cluster | Best For |
+|---------|----------|
+| minimal-saas | SaaS, dev tools, B2B |
+| cinematic-hero | Entertainment, launches |
+| editorial-magazine | Publications, agencies |
+| playful-brand | Consumer apps, startups |
+| futuristic-tech | Tech products, AI, crypto |
+| luxury-premium | Fashion, hospitality, high-end |
+| brutal-raw | Dev tools, manifestos |
+| artisanal-craft | Sustainable brands, studios |
+| experimental-art | Portfolios, art projects |
+| technical-data | Enterprise, documentation |
+| product-hero | Product launches, Apple-style |
+| agency-portfolio | Creative agencies |
 
-### 8 Motion Regimes
-`subtle` · `kinetic-type` · `scroll-scene` · `immersive` · `parallax` · `mixed` · `cursor-led` · `minimal-motion`
+### Motion Regimes
+`subtle` · `kinetic-type` · `scroll-scene` · `immersive` · `parallax` · `cursor-led` · `minimal-motion`
 
-## Tech Stack (User Builds)
+## Examples
 
-The skill generates direction + tokens. User must:
+See the [examples/](/.claude/skills/award-landing/examples/) folder for complete worked examples:
 
-1. `npx create-next-app@latest [name] --typescript --tailwind --app`
-2. `npm install gsap @gsap/react lenis`
-3. Inject TOKENS.json into `globals.css` under `@theme { }`
-4. Source assets per ASSETS.md
-5. Run Lighthouse, test reduced motion
-
-Stack:
-- **Next.js 14+** App Router
-- **Tailwind CSS v4** with `@theme` directive
-- **GSAP + ScrollTrigger** for animations
-- **TypeScript** strict mode
-
-## Key Features
-
-- **Vibe→Cluster Mapping** — deterministic style matching with fallback rules
-- **Font Pairing Table** — 8 vibes mapped to Display/Body/Mono fonts
-- **15 Reference Sites** — Awwwards SOTM winners with signature techniques
-- **13 Motion Patterns** — GSAP signatures for common interactions
-- **Completed Example** — "Maison Horologique" luxury watch brand
-
-## Non-Goals
-
-- Not a UI component library
-- Not WebGL/Three.js (unless explicitly requested)
-- Not production-ready code — direction + scaffold only
-- Not scraping — curated corpus only
+- **Maison Horologique** — Luxury Swiss watch brand with scroll-driven rotation
+- **Flux** — Developer productivity tool with fluid task physics
+- **Bounce** — Playful fitness app with bouncy cursor interactions
 
 ## License
 

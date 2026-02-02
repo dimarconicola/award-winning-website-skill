@@ -1,669 +1,358 @@
 ---
 name: award-landing
-description: Generate premium, award-gallery-inspired landing pages. Use when creating a new marketing landing page, redesigning a site with high-end aesthetics, or when the user mentions Awwwards, FWA, or "award-winning design."
-allowed-tools: Read, Write, Glob, Grep, Bash(mkdir:*), Bash(cp:*)
+description: Generate Awwwards-quality landing pages. Use when creating marketing sites, redesigning with premium aesthetics, or when user mentions "award-winning design."
 ---
 
 # Award-Winning Landing Page Director
 
-Generate premium landing pages inspired by Awwwards/FWA galleries. This skill produces a complete creative direction package and a working Next.js scaffold.
+Transform briefs into sites that win Awwwards Site of the Day.
 
-## Quick Start
-
-```
-/award-landing "Brief describing the brand, product, and desired vibe"
-```
+**What wins awards:** A singular concept executed relentlessly. Not "many things done well" — ONE thing done unforgettably.
 
 ---
 
-## Workflow (7 Steps)
+## Brief Intake
 
-1. **Ingest Brief** — Parse brand, audience, vibe, constraints. Match against Reference Corpus + Style Clusters.
-   - Extract 2-3 vibe keywords from brief (e.g., "premium", "techy", "playful")
-   - Find clusters whose keywords overlap; pick the best-fit cluster
-   - Pull 2-3 corpus sites with matching tags as Reference DNA
-   - **Example:** Brief "premium fintech dashboard for Gen Z" → vibes: `futuristic` + `minimal` → cluster: `futuristic-tech` → refs: Vercel, Zentry
-2. **DIRECTION.md** — Creative direction (template in Section 5)
-3. **MOTION.md** — Motion system (patterns in Section 4)
-4. **ASSETS.md** — Asset requirements (template in Section 5)
-5. **PAGE_PLAN.md** — Page structure (template in Section 5)
-6. **TOKENS.json** — Design tokens for CSS
-7. **Code Scaffold** — Next.js project (Section 6)
+Before starting, ensure you have these. Ask if missing:
 
----
+| Required | Why |
+|----------|-----|
+| Brand name | Identity foundation |
+| Industry/product type | Cluster selection |
+| Target audience | Tone calibration |
+| 3 adjectives | Vibe direction |
+| Competitors to avoid | Differentiation |
+| Content scope | Section planning |
 
-## 1. Style Vocabulary
+| Helpful If Provided | Why |
+|---------------------|-----|
+| Existing brand colors | Palette constraint |
+| Typography preferences | Type direction |
+| Reference sites they like | Style signal |
+| Hero imagery/video | Asset planning |
+| Key differentiator | Concept seed |
+| Launch timeline | Complexity calibration |
 
-### Primary Vibes (Pick 1 Primary + 1 Secondary)
-| Vibe | Definition |
-|------|------------|
-| `cinematic` | Dramatic scale, hero video/imagery, theatrical reveals |
-| `editorial` | Magazine-inspired, strong typography hierarchy, content-first |
-| `playful` | Bright colors, bouncy motion, whimsical illustrations |
-| `brutal` | Raw, exposed structure, monospace type, anti-design |
-| `minimal` | Maximum whitespace, restrained palette, surgical precision |
-| `luxury` | Rich textures, gold/champagne accents, slow elegance |
-| `futuristic` | Gradients, glassmorphism, tech-forward aesthetics |
-| `artisanal` | Hand-crafted feel, organic textures, warm and human |
-| `technical` | Systematic, data-forward, precision-driven communication |
-| `experimental` | Boundary-pushing, genre-bending, unexpected combinations |
-| `bold` | Oversized type, high contrast, unapologetic presence |
-| `ethereal` | Soft gradients, floating elements, dreamlike atmosphere |
-
-### Motion Regimes
-| Regime | Description | GSAP Pattern |
-|--------|-------------|--------------|
-| `subtle` | Micro-interactions only | Fade, slight translate (20px max) |
-| `kinetic-type` | Typography as motion | SplitText, character stagger |
-| `scroll-scene` | Scroll-driven reveals | ScrollTrigger scrub, pin |
-| `immersive` | Full takeover moments | Timeline sequences, morphs |
-| `parallax` | Layered depth | Multiple speed layers |
-| `mixed` | Playful variety | Bouncy eases, stagger, scale pops |
-| `cursor-led` | Cursor drives motion | Mouse position tracking, magnetic effects |
-| `minimal-motion` | Near-static, content-first | Instant or 100ms fades only |
-
-> Regimes can combine (e.g., `scroll-scene` + `cursor-led`). Pick a primary and note secondary in MOTION.md.
-
-### Materiality
-| Label | Characteristics |
-|-------|-----------------|
-| `glass` | Backdrop blur, transparency, frosted surfaces |
-| `paper` | Subtle shadows, layered cards, tactile depth |
-| `metal` | Gradients, reflections, brushed textures |
-| `fabric` | Soft edges, organic curves, textile patterns |
-| `neon` | Glows, saturated colors, dark backgrounds |
-| `organic` | Natural textures, earth tones, imperfect edges |
+**If user provides a minimal brief:** Extract what you can, then ask 2-3 targeted questions before proceeding.
 
 ---
 
-## 2. Style Clusters
+## The 4-Phase Process
 
-### Vibe → Cluster Mapping
-| Primary Vibe | Secondary Vibe | → Cluster |
-|--------------|----------------|----------|
-| `minimal` | `technical` | minimal-saas |
-| `cinematic` | `luxury` | cinematic-hero |
-| `editorial` | `minimal` | editorial-magazine |
-| `playful` | `bold` | playful-brand |
-| `futuristic` | `technical` | futuristic-tech |
-| `luxury` | `minimal` | luxury-premium |
-| `brutal` | `minimal` | brutal-raw |
-| `artisanal` | `editorial` | artisanal-craft |
-| `experimental` | `bold` | experimental-art |
-| `technical` | `minimal` | technical-data |
-| `cinematic` | `minimal` | product-hero |
-| `bold` | `cinematic` | agency-portfolio |
+### Phase 1: Concept Extraction
+Before any visuals, answer these:
 
-> **Fallback:** If no exact match, pick cluster by primary vibe alone. If primary is ambiguous, prefer the cluster with more exemplars matching the brief's industry.
+1. **What's the single truth about this brand?** Extract ONE essential quality.
+2. **What metaphor embodies it?** (Precision → watchmaking. Speed → wind. Trust → architecture.)
+3. **What feeling persists after the user leaves?** (Awed? Reassured? Delighted?)
+4. **What's the Signature Moment?** One interaction users will screenshot and share.
 
-### minimal-saas
-Clean, restrained product pages. Geometric sans, neutral + single accent, subtle motion.
-- **Exemplars:** Linear, Raycast, Cron Calendar, Height
+> See [concepts/THESIS.md](concepts/THESIS.md) for the full framework.
 
-### cinematic-hero
-Film-inspired with immersive imagery, dramatic reveals, dark dominant.
-- **Exemplars:** Studio Santi, Locomotive, Fantasy, Porsche
+### Phase 2: Vocabulary Selection
+Constrained choices from the design vocabulary:
 
-### editorial-magazine
-Magazine layouts, strong type hierarchy, content-first, serifs + sans.
-- **Exemplars:** Pentagram, Squarespace, Readymag, Cargo
+| Decision | Options | Reference |
+|----------|---------|-----------|
+| Primary Vibe | cinematic, editorial, playful, brutal, minimal, luxury, futuristic, artisanal, experimental, bold, ethereal | [reference/VIBES.md](reference/VIBES.md) |
+| Secondary Vibe | Creates tension with primary | Same |
+| Motion Regime | subtle, kinetic-type, scroll-scene, immersive, parallax, cursor-led, minimal-motion | [reference/VIBES.md](reference/VIBES.md) |
+| Materiality | glass, paper, metal, fabric, neon, organic | Same |
+| Style Cluster | Match vibe combination to proven pattern | [reference/CLUSTERS.md](reference/CLUSTERS.md) |
+| Reference DNA | 2-3 sites to borrow specific elements from | [reference/CORPUS.md](reference/CORPUS.md) |
 
-### playful-brand
-Vibrant, personality-driven, bold colors, unexpected interactions.
-- **Exemplars:** Figma, Arc Browser, Mailchimp, Glossier
+### Phase 3: Hierarchy Decisions
+Decide in this order — earlier decisions constrain later ones:
 
-### futuristic-tech
-Gradients, glass effects, 3D, neon accents on dark.
-- **Exemplars:** Vercel, Framer, Nothing, Spotify
+1. **Typography** — 80% of visual impact. The typeface IS the design.
+2. **Layout Rhythm** — Density vs. whitespace. Vertical vs. horizontal flow.
+3. **Color Restraint** — 2-3 colors max. One accent with meaning.
+4. **Motion Philosophy** — Slower = luxury. Snappy = efficient. Purposeful always.
+5. **Signature Moment** — The ONE thing they'll remember.
 
-### luxury-premium
-Refined, premium, elegant serifs, muted palette, slow motion.
-- **Exemplars:** Superhuman, Bang & Olufsen, Aesop
+> See [taste/TYPOGRAPHY.md](taste/TYPOGRAPHY.md) for type-first thinking.
 
-### brutal-raw
-Stark, exposed, monospace, black/white dominant.
-- **Exemplars:** Pentagram, Sagmeister Walsh
+### Phase 4: Self-Evaluation
+Before generating code, pass these tests:
 
-### artisanal-craft
-Handmade, organic textures, warm palettes, humanist type.
-- **Exemplars:** Craft, Analogue, Allbirds, Patagonia
+- [ ] Can I describe the concept in 5 words?
+- [ ] Is there ONE moment users will screenshot?
+- [ ] Have I been restrained enough that peaks feel earned?
+- [ ] Would every element survive the question "does this serve the concept?"
+- [ ] Would a jury notice care in the hover states?
 
-### experimental-art
-Boundary-pushing, unusual layouts, generative, cursor-led.
-- **Exemplars:** Sagmeister Walsh, Resn, Teenage Engineering
-
-### technical-data
-Information-dense experiences for engineers and analysts, systematic and precise.
-- **Exemplars:** Stripe, Webflow, Intercom, Google Cloud
-
-### product-hero
-Product-centric with feature-benefit structure, conversion-optimized.
-- **Exemplars:** Apple, Sonos, Tesla, Rivian
-
-### agency-portfolio
-Case study focus, distinctive display type, work-forward.
-- **Exemplars:** Studio Santi, Basic Agency, Locomotive, Fantasy
+> See [taste/EVALUATION.md](taste/EVALUATION.md) for the full rubric.
 
 ---
 
-## 3. Reference Corpus — Awwwards SOTM Winners
+## What Separates SOTD from "Good"
 
-| Site | Studio | Tags | Signature Technique |
-|------|--------|------|---------------------|
-| Igloo Inc (SOTY 2024) | abeto | minimal, luxury | Seamless shared-element transitions |
-| Apple AirPods Pro | Apple | minimal, product-hero | Scroll-driven product rotation |
-| Bruno Simon Portfolio (SOTY) | Bruno Simon | experimental, playful | 3D car driving on terrain |
-| Cartier Watches & Wonders | Immersive Garden | luxury, cinematic | Light ray product reveal |
-| Lusion v3 (SOTY) | Lusion | experimental, futuristic | WebGL fluid mouse distortion |
-| Locomotive® | Locomotive | agency-portfolio | Smooth scroll + horizontal sections |
-| MindMarket | Louis Paquet | cinematic, experimental | WebGL particle morphing on scroll |
-| Montfort | Immersive Garden | luxury, cinematic | Horizontal scroll with depth |
-| Ponpon Mania | Patrick Heng | playful, experimental | 3D candy physics with cursor |
-| Siena Film Foundation | Niccolò Miranda | editorial, cinematic | Paper-fold transitions |
-| Slosh Seltzer | Active Theory | playful, product-hero | Liquid physics simulation |
-| Terminal Industries | REJOUICE | minimal, technical | ASCII art hero |
-| The Fabulous Cartier Journey | Merci Michel | luxury, cinematic | 360° WebGL jewelry viewer |
-| The Hall of Zero Limits | Dogstudio | cinematic, experimental | Scroll-driven 3D environment |
-| Zentry | Resn | futuristic, experimental | Gaming HUD interface |
+### 1. Singular Concept, Relentless Execution
+Winners don't do many things well — they do ONE thing unforgettably.
+- Igloo Inc: seamless shared-element transitions
+- Bruno Simon: a 3D car you drive
+- Lusion: fluid mouse distortion
 
----
+The concept should be explainable in 5 words and visible in every interaction.
 
-## 4. Motion Patterns Reference
+### 2. Narrative Choreography
+Motion isn't "adding animations." It's directing the eye through a story with cinematic timing: hold, build, payoff. Elements enter in relationship to each other, not independently.
 
-Key GSAP patterns. Use pattern name + signature as implementation guide.
+### 3. The Signature Moment™
+Every SOTY has ONE moment users remember and share:
+- Ponpon Mania: physics candy you throw
+- Cartier: light ray product reveal
+- Slosh Seltzer: liquid physics simulation
 
-| Pattern | Use Case | Key GSAP Signature |
-|---------|----------|-------------------|
-| **Lenis Smooth Scroll** | Buttery scroll | `new Lenis({ duration: 1.2, smoothWheel: true })` → bridge with `lenis.on("scroll", ScrollTrigger.update)` |
-| **SplitText Characters** | Kinetic headlines | `new SplitText(el, { type: "chars" })` then `gsap.from(split.chars, { opacity: 0, y: 50, stagger: 0.02 })` |
-| **ScrollTrigger Pin** | Scroll-driven reveals | `scrollTrigger: { trigger, pin: true, scrub: 1, start: "top top", end: "+=200%" }` |
-| **Parallax Layers** | Multi-speed depth | `gsap.to(".layer", { yPercent: -30, scrollTrigger: { scrub: true } })` — vary per layer |
-| **Magnetic Button** | Cursor-led CTA | Track mouse relative to center, `gsap.to(btn, { x: dx*0.3, y: dy*0.3 })`, reset with `elastic.out(1, 0.3)` |
-| **Clip-Path Reveal** | Text wipe entrance | `gsap.fromTo(el, { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" }, { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" })` |
-| **Image Reveal** | Dramatic image entrance | Wrapper `overflow: hidden`, image `gsap.from({ yPercent: 100, scale: 1.4 })` |
-| **Horizontal Scroll** | Galleries | `gsap.to(panels, { xPercent: -100*(n-1), scrollTrigger: { pin: true, scrub: 1, snap: 1/(n-1) } })` |
-| **Infinite Marquee** | Scrolling text/logos | Clone content, `gsap.to(el, { x: -width/2, duration: width/speed, repeat: -1, ease: "none" })` |
-| **Scroll Video** | Apple-style reveals | `video.currentTime = scrollProgress * video.duration` via ScrollTrigger onUpdate |
-| **Custom Cursor** | Signature cursor | Two elements: cursor (0.1s), follower (0.5s), scale on hover |
-| **Preloader Exit** | Branded loading | Timeline: logo in → progress fill → logo out → container `yPercent: -100` |
-| **Page Transitions** | Cross-page | `next-view-transitions` package or native `document.startViewTransition()` |
+This is the "screenshot moment" that gets posted to design communities.
 
-> **SplitText Note:** SplitText requires Club GSAP. Free alternative: manually split text into `<span class="char">` elements.
+### 4. Tension Between Restraint and Surprise
+Winners are brutally restrained (heavy whitespace, limited color) punctuated by controlled excess. The contrast creates drama. Restraint makes surprises land harder.
 
-### Reduced Motion
-All patterns MUST check `prefers-reduced-motion`. Replace animations with instant state, keep opacity fades only.
+### 5. Typography as Primary Material
+Type isn't decoration — it's architecture. Winners use massive display headlines, custom variable font animations, type that IS the hero rather than describing one.
+
+### 6. Obsessive Micro-Details
+Jury members browse at 100% zoom and notice the hover state on a 12px icon. Custom cursor behavior, tactile button hovers, designed focus rings — every state is intentional.
+
+### 7. Speed as Luxury
+The fastest sites feel expensive. LCP < 1.5s, instant interactions, 60fps scroll. Loading should be branded. Slow shatters the illusion.
 
 ---
 
-## 4.5. Modern CSS Reference
+## Motion Patterns (Concepts Only)
 
-| Technique | Support | Key Syntax |
-|-----------|---------|------------|
-| **View Transitions API** | Chrome 111+, Safari 18+ | `document.startViewTransition()`, `::view-transition-old/new(root)` |
-| **CSS Scroll-Timeline** | Chrome 115+ | `animation-timeline: scroll()`, `animation-range: entry 0% cover 40%` |
-| **Container Queries** | All modern | `container-type: inline-size`, `@container (min-width: 400px)`, units: `cqi` |
-| **Variable Font Animation** | All modern | `font-variation-settings: 'wght' 400`, transition on hover/scroll |
-| **AVIF Images** | Chrome, Firefox, Safari 16+ | `<source srcset=".avif" type="image/avif">` in `<picture>` |
-| **color-mix()** | All modern | `color-mix(in srgb, var(--color), white 20%)` for dynamic tints |
+Use these pattern names. Implementation is your domain.
+
+| Pattern | What It Does | When to Use |
+|---------|--------------|-------------|
+| Smooth Scroll | Lerp-based scroll with easing, replaces native scroll | Foundation for premium feel |
+| Split Text | Break text into chars/words/lines, animate individually | Kinetic headlines, character-by-character reveals |
+| Scroll Pin | Pin element in viewport while scrolling through content inside it | Scroll-driven reveals, Apple-style product sections |
+| Parallax Layers | Elements move at different speeds relative to scroll | Depth, multi-speed backgrounds |
+| Magnetic Hover | Element follows cursor within radius, snaps back on leave | Cursor-led CTAs, playful buttons |
+| Clip-Path Reveal | Animate clip-path from hidden to visible | Dramatic text entrances, wipe effects |
+| Image Reveal | Scale from 0 + clip-path, parent overflow hidden | Dramatic image entrances with scale |
+| Horizontal Scroll | Vertical scroll drives horizontal container movement | Galleries, case study showcases |
+| Infinite Marquee | Seamless looping horizontal scroll, duplicated content | Logo bars, scrolling testimonials |
+| Scroll Video | Scrub video frames based on scroll position | Frame-by-frame product reveals |
+| Custom Cursor | Replace default cursor with branded element that follows mouse | Signature cursor that reflects brand |
+| View Transitions | Shared-element morphing between pages via View Transitions API | Cross-page cinematic transitions |
+
+> Always respect `prefers-reduced-motion`. Replace with instant states.
 
 ---
 
-## 5. Artifact Templates
+## Anti-Patterns (What Loses)
 
-### DIRECTION.md Template
+| Anti-Pattern | Why It Fails |
+|--------------|--------------|
+| Generic SaaS Template | Hero + 3 features + pricing = forgettable |
+| Motion Without Purpose | Animations must guide attention or provide feedback |
+| Stock Photo Overload | Max 3-5 stock images; prefer custom/3D/illustration |
+| Typography Neglect | Type is 80% of design — generic fonts = generic site |
+| Scroll Hijacking | Scrub is fine; full takeover breaks trust |
+| Ignoring Performance | LCP > 2.5s = immediate disqualification |
+| Complexity Without Concept | Impressive tech with no soul = "cool demo, not a site" |
+| Restraint Without Payoff | All quiet, no peaks = boring |
 
-```markdown
-# Creative Direction: [Project Name]
+---
 
-## Design Thesis
-> One sentence capturing the essence.
+## Performance Philosophy
 
-## Mood Triad
-1. **[Adjective 1]** — How it manifests
-2. **[Adjective 2]** — How it manifests
-3. **[Adjective 3]** — How it manifests
+Speed is luxury. Slow shatters the illusion.
 
-## Style Classification
-- **Primary Vibe:** [from vocabulary]
-- **Secondary Vibe:** [from vocabulary]
-- **Cluster:** [from clusters]
-- **Motion Regime:** [from vocabulary]
-- **Materiality:** [from vocabulary]
+**Targets:**
+- LCP < 1.5s (ideally < 1s)
+- FID < 100ms
+- CLS < 0.1
+- 60fps scroll always
 
-## Color Philosophy
-| Role | Hex | Rationale |
-|------|-----|-----------|
-| Background | #hex | Why |
-| Foreground | #hex | Why |
-| Accent | #hex | Why |
-| Neutral 0-5 | #hex | Scale from dark to light |
+**How to achieve it:**
+| Technique | When |
+|-----------|------|
+| next/image with priority | Hero images |
+| Lazy load below fold | All non-hero images |
+| Dynamic import GSAP | Don't block initial render |
+| Preload fonts | Display fonts in hero |
+| Video poster + lazy | Hero video |
+| Reduce ScrollTrigger count | Combine where possible |
+| will-change sparingly | Only on animated elements |
 
-## Typography System
-| Role | Font | Weight | Usage |
-|------|------|--------|-------|
-| Display | [font] | [weight] | Headlines |
-| Body | [font] | [weight] | Paragraphs |
-| Mono | [font] | [weight] | Code/data |
+**Tradeoffs when needed:**
+| If... | Sacrifice... |
+|-------|-------------|
+| Hero video kills LCP | Use image sequence or poster until interaction |
+| Too many scroll triggers | Combine sections, reduce parallax layers |
+| Custom fonts slow | Use system font stack for body, custom for display only |
+| WebGL/3D needed | Lazy load, show fallback first |
 
-## Reference DNA
-| Site | What to Borrow |
-|------|---------------|
-| [Site 1] | Specific element |
-| [Site 2] | Specific element |
+**Loading as branding:** If load is unavoidable, brand it. Animated logo, progress bar with personality.
 
-### Font Pairing by Vibe
-| Vibe | Display | Body | Mono |
-|------|---------|------|------|
-| luxury | Cormorant, Playfair | Inter, Söhne | JetBrains Mono |
-| minimal | Geist, Inter | Geist, Inter | Geist Mono |
-| editorial | Fraunces, Newsreader | Source Serif, Lora | IBM Plex Mono |
-| playful | Bricolage Grotesque, Satoshi | DM Sans, Nunito | Space Mono |
-| brutal | JetBrains Mono, Space Grotesk | Space Grotesk | JetBrains Mono |
-| futuristic | Clash Display, Syne | Inter, Outfit | Fira Code |
-| artisanal | Fraunces, Lora | Source Serif, Merriweather | IBM Plex Mono |
-| cinematic | Bebas Neue, Oswald | Inter, Manrope | JetBrains Mono |
+---
 
-## Light vs Dark Mode
-- **Dark:** Deep bg (#0a-#12), light fg, accent pops. Good for cinematic, luxury, futuristic.
-- **Light:** Off-white bg (#f5-#fff), dark fg, muted accent. Good for editorial, minimal, artisanal.
-- If supporting both, define separate neutral scales and toggle via `.dark` class.
+## Assets & Content
+
+**When user provides assets:** Use them. Optimize aggressively.
+
+**When assets are missing:**
+| Asset Type | Strategy |
+|------------|----------|
+| Hero image/video | Use placeholder with clear TODO comment |
+| Product shots | Geometric shapes or branded gradients as placeholders |
+| Icons | Lucide React (consistent, crisp) |
+| Illustrations | Suggest style, use colored shapes as stand-in |
+| Logos (client logos) | Gray rectangles with "LOGO" text |
+
+**Stock photo rules:**
+- Maximum 3-5 stock images total
+- Never in hero (hero must be custom or product)
+- Prefer abstract/textural over people
+- Consistent treatment (all B&W, all duotone, etc.)
+
+**Illustration vs. photography:**
+| Vibe | Prefer |
+|------|--------|
+| playful, artisanal | Illustration |
+| luxury, cinematic, editorial | Photography |
+| minimal, brutal | Neither — geometry, type, negative space |
+| futuristic | 3D renders or abstract gradients |
+
+---
+
+## Output Structure
+
+Generate artifacts in chat, then code to disk:
+
+### 1. DIRECTION.md (show in chat)
+- **Design Thesis** — One sentence capturing the essence
+- **Mood Triad** — 3 adjectives with manifestation
+- **Style Classification** — Vibe, cluster, motion regime, materiality
+- **Color Philosophy** — Palette with rationale
+- **Typography System** — Fonts with roles
+- **Reference DNA** — 2-3 sites, what to borrow
+
+### 2. PAGE_PLAN.md (show in chat)
+- **Section Overview** — Purpose and layout of each section
+- **Signature Moment** — Where and what
+- **Responsive Strategy** — See below
+
+### 3. Code (write to disk)
+Next.js 14+ App Router, Tailwind CSS, GSAP + ScrollTrigger, TypeScript.
+
+---
+
+## File Structure
+
+Organize generated code consistently:
+
+```
+app/
+├── layout.tsx              # Root layout, fonts, metadata
+├── page.tsx                # Home page, imports sections
+├── globals.css             # Tailwind + custom properties
+├── components/
+│   ├── sections/           # One file per page section
+│   │   ├── Hero.tsx
+│   │   ├── Features.tsx
+│   │   └── ...
+│   ├── ui/                 # Reusable primitives
+│   │   ├── Button.tsx
+│   │   ├── Magnetic.tsx    # Magnetic hover wrapper
+│   │   └── ...
+│   └── motion/             # Animation utilities
+│       ├── SplitText.tsx   # Text splitting component
+│       ├── ScrollPin.tsx   # Scroll-pinned section
+│       ├── Reveal.tsx      # Intersection-based reveal
+│       └── SmoothScroll.tsx # Lenis wrapper
+├── hooks/
+│   ├── useGSAP.ts          # GSAP context hook
+│   └── useReducedMotion.ts # prefers-reduced-motion
+└── lib/
+    └── utils.ts            # cn(), animation helpers
 ```
 
-#### Completed Example: Maison Horologique
+**Section components:** Each section is self-contained with its own animations. Initialize GSAP in `useLayoutEffect` with proper cleanup.
 
-```markdown
-# Creative Direction: Maison Horologique
+**Shared motion:** Common patterns (Magnetic, Reveal, SplitText) live in `components/motion/` for reuse.
 
-## Design Thesis
-> Timeless precision meets digital craft — a website that moves with the deliberate elegance of fine watchmaking.
-
-## Mood Triad
-1. **Precise** — Every element aligned to 8px grid; typography set with Swiss accuracy
-2. **Luxurious** — Deep blacks, warm golds, generous whitespace; materials that suggest weight
-3. **Unhurried** — Slow reveals reward patience; no aggressive CTAs; quiet confidence
-
-## Style Classification
-- **Primary Vibe:** luxury
-- **Secondary Vibe:** cinematic
-- **Cluster:** luxury-premium
-- **Motion Regime:** scroll-scene
-- **Materiality:** metal
-
-## Color Philosophy
-| Role | Hex | Rationale |
-|------|-----|-----------|
-| Background | #0C0B0A | Near-black with warm undertone, like onyx |
-| Foreground | #F5F3EF | Warm white, not clinical |
-| Accent | #C9A962 | Champagne gold, brand signature |
-| Neutral 0 | #0C0B0A | Deepest shadow |
-| Neutral 1 | #1A1918 | Card backgrounds |
-| Neutral 2 | #2D2B29 | Borders |
-| Neutral 3 | #524F4B | Muted text |
-| Neutral 4 | #8A8580 | Secondary text |
-| Neutral 5 | #C4BFB8 | Tertiary |
-
-## Typography System
-| Role | Font | Weight | Usage |
-|------|------|--------|-------|
-| Display | Cormorant Garamond | 300, 400 | Headlines — elegant serif |
-| Body | Inter | 400, 500 | Paragraphs — clean |
-| Mono | JetBrains Mono | 400 | Model numbers |
-
-## Reference DNA
-| Site | What to Borrow |
-|------|---------------|
-| Cartier Watches & Wonders | Light ray product reveals |
-| Bang & Olufsen | Product photography as hero |
-| Igloo Inc | Seamless section transitions |
-```
-
-### MOTION.md Template
-
-```markdown
-# Motion System: [Project Name]
-
-## Motion Philosophy
-> One sentence on motion's role.
-
-## Regime: [regime-name]
-
-## Timing Tokens
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--duration-fast` | 150ms | Hovers |
-| `--duration-normal` | 300ms | Transitions |
-| `--duration-slow` | 500ms | Reveals |
-
-## Easing Tokens
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--ease-out` | cubic-bezier(0, 0, 0.2, 1) | Entrances |
-| `--ease-in-out` | cubic-bezier(0.4, 0, 0.2, 1) | State changes |
-
-## GSAP Patterns
-[Key patterns from Section 4 with project-specific values]
-
-## Signature Interaction
-[One unique interaction for this project]
-
-## Reduced Motion
-All animations respect `prefers-reduced-motion`. Replace with instant states, keep opacity fades.
-```
-
-#### Completed Example: Maison Horologique
-
-```markdown
-# Motion System: Maison Horologique
-
-## Motion Philosophy
-> Motion should feel like the sweep of a second hand — precise, unhurried, mechanically perfect.
-
-## Regime: scroll-scene
-
-## Timing Tokens
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--duration-fast` | 200ms | Button hovers |
-| `--duration-normal` | 400ms | Icon transitions |
-| `--duration-slow` | 800ms | Section entrances |
-| `--duration-slower` | 1200ms | Hero reveals |
-
-## Easing Tokens
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--ease-out` | cubic-bezier(0.16, 1, 0.3, 1) | Smooth entrances |
-| `--ease-luxury` | cubic-bezier(0.19, 1, 0.22, 1) | Signature slow reveals |
-
-## GSAP Patterns
-
-**Hero Watch Reveal:**
-```javascript
-tl.from(".hero-watch", { opacity: 0, y: 100, scale: 0.95, duration: 1.5, ease: "power3.out" })
-  .from(".hero-headline span", { opacity: 0, y: 40, stagger: 0.05 }, "-=0.8");
-```
-
-**Scroll-Pinned Product Rotation:**
-```javascript
-gsap.to(".product-360", { rotationY: 360, scrollTrigger: { trigger: ".product-section", pin: true, scrub: 1, end: "+=200%" } });
-```
-
-## Signature Interaction: Crown Rotation
-On watch hover, crown rotates 45° as if being wound, elastic return on leave.
-
-## Reduced Motion
-Replace scroll-pinned with static layouts. Keep 0.3s opacity fades. Show static product image.
-```
-
-### ASSETS.md Template
-
-```markdown
-# Asset Requirements: [Project Name]
-
-## Hero Media
-- **Type:** [video/image/3D]
-- **Dimensions:** [e.g., 3840x2160]
-- **Format:** [MP4/WebM/WebP]
-- **Mood:** [description]
-- **Source:** [stock/custom/AI]
-
-## Photography Style
-- Treatment: [contrast, tones]
-- Lighting: [natural/studio]
-- Composition: [centered/asymmetric]
-
-## Iconography
-- **Style:** [outline/solid]
-- **Source:** [Lucide/Heroicons/custom]
-
-## Font Files
-| Font | Weights | Source |
-|------|---------|--------|
-| [Display] | [weights] | [source] |
-| [Body] | [weights] | [source] |
-
-## Image Optimization
-- Format: AVIF → WebP → JPEG
-- Sizes: srcset 640, 960, 1280, 1920
-- Lazy loading below fold
-```
-
-#### Completed Example: Maison Horologique
-
-```markdown
-# Asset Requirements: Maison Horologique
-
-## Hero Media
-- **Type:** Video (product reveal)
-- **Dimensions:** 3840x2160 (4K)
-- **Format:** MP4 (H.265), WebM fallback
-- **Mood:** Cinematic slow-motion, watch emerging from darkness into warm light
-- **Source:** Custom shoot — macro lens, controlled studio lighting
-
-## Photography Style
-- Treatment: High contrast, warm shadows, champagne highlights
-- Lighting: Single key from upper-left, soft fill, dramatic falloff
-- Composition: Product centered, generous negative space
-
-## Iconography
-- **Style:** Custom 1px line icons matching Cormorant letterforms
-- **Icons:** Crown, movement, sapphire, water resistance, warranty
-
-## Font Files
-| Font | Weights | Source |
-|------|---------|--------|
-| Cormorant Garamond | 300, 400, 500 | Google Fonts |
-| Inter | 400, 500 | Google Fonts |
-| JetBrains Mono | 400 | Google Fonts |
-
-## Image Optimization
-- Format: AVIF → WebP → JPEG
-- Sizes: srcset 640, 960, 1280, 1920, 2560
-- Quality: 85% hero, 80% secondary
-- Placeholder: Solid #0C0B0A
-```
-
-### PAGE_PLAN.md Template
-
-```markdown
-# Page Structure: [Project Name]
-
-## Section Overview
-| # | Section | Purpose | Layout |
-|---|---------|---------|--------|
-| 1 | Hero | Value prop | Full-bleed |
-| 2 | [Name] | [Purpose] | [Layout] |
-| ... | ... | ... | ... |
-| N | Footer | Navigation, legal | Multi-column |
-
-## Section Details
-[For each section: Purpose, Content, Media, Animation]
-
-## Component Inventory
-| Component | Count | Variants |
-|-----------|-------|----------|
-| Button | [n] | primary, secondary, ghost |
-| Card | [n] | [variants] |
+---
 
 ## Responsive Strategy
-| Breakpoint | Changes |
-|------------|---------|
-| Mobile <768px | Single column, stacked CTAs |
-| Desktop >1024px | Full experience |
-```
 
-#### Completed Example: Maison Horologique
+| Breakpoint | Approach |
+|------------|----------|
+| Mobile (<768px) | Simplified: reduce motion, stack layouts, touch-friendly |
+| Tablet (768-1024px) | Hybrid: some motion, adapted layouts |
+| Desktop (>1024px) | Full experience |
 
-```markdown
-# Page Structure: Maison Horologique
+**What to simplify on mobile:**
+- Horizontal scroll → Vertical stack or swiper
+- Parallax → Static or subtle
+- Custom cursor → Remove (no cursor on touch)
+- Scroll pin → Shorter or removed
+- Split text → Simpler word-level, not char-level
 
-## Section Overview
-| # | Section | Purpose | Layout |
-|---|---------|---------|--------|
-| 1 | Hero | Cinematic product reveal | Full-bleed video |
-| 2 | Heritage | Establish provenance | Split 50/50 |
-| 3 | Collection | Showcase timepieces | Horizontal scroll |
-| 4 | Craftsmanship | Deep-dive excellence | Pinned scroll |
-| 5 | Boutique | Drive to retail | Map + grid |
-| 6 | Footer | Navigation, newsletter | 4-column |
+**Touch substitutes:**
+| Desktop | Mobile |
+|---------|--------|
+| Hover states | Tap states or remove |
+| Magnetic hover | Remove |
+| Cursor-led motion | Scroll-driven instead |
 
-## Section Details
-
-### Hero
-- **Headline:** "Where Time Becomes Art"
-- **Subhead:** "Swiss precision. Timeless elegance. Since 1892."
-- **CTAs:** "Explore Collection" → #collection, "Book Appointment" → /boutiques
-- **Media:** 4K video loop — watch emerging from shadow
-- **Animation:** Hero Watch Reveal (from MOTION.md)
-
-### Collection
-- 4 product cards: image, family name, price, CTA
-- Horizontal scroll with snap points
-
-### Craftsmanship
-- 4 features: Movement, Materials, Crystal, Water resistance
-- Pinned scroll with sequential reveals
-
-## Component Inventory
-| Component | Count | Variants |
-|-----------|-------|----------|
-| Button | 8 | primary (gold), secondary (outline), ghost |
-| Card | 6 | product, location |
-| ProductImage | 4 | with hover zoom |
-
-## Responsive Strategy
-| Breakpoint | Changes |
-|------------|---------|
-| Mobile <768px | Single column, vertical collection, simplified map |
-| Desktop >1024px | Full animations, horizontal scroll, 4-column footer |
-```
-
-### TOKENS.json Template
-
-```json
-{
-  "colors": {
-    "bg": "#0a0a0f",
-    "fg": "#ffffff",
-    "accent": "#3b82f6",
-    "neutral": ["#12121a", "#1a1a24", "#2a2a36", "#4a4a58", "#6a6a78", "#8a8a98"]
-  },
-  "typography": {
-    "fontSans": "Inter, system-ui, sans-serif",
-    "fontDisplay": "Inter, system-ui, sans-serif",
-    "fontMono": "JetBrains Mono, monospace"
-  },
-  "spacing": {
-    "sectionY": "120px",
-    "sectionYMobile": "80px",
-    "maxWidth": "1200px"
-  },
-  "motion": {
-    "durationFast": "150ms",
-    "durationNormal": "300ms",
-    "durationSlow": "500ms",
-    "easeOut": "cubic-bezier(0, 0, 0.2, 1)",
-    "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)"
-  }
-}
-```
-
-### QA.md Template
-
-```markdown
-# QA Checklist: [Project Name]
-
-## Accessibility
-- [ ] Contrast ≥ 4.5:1 text, ≥ 3:1 large text
-- [ ] Alt text on images
-- [ ] Visible focus states
-- [ ] Skip link present
-- [ ] `prefers-reduced-motion` respected
-- [ ] Keyboard navigable
-
-## Performance
-- [ ] Lighthouse ≥ 90
-- [ ] LCP < 2.5s, CLS < 0.1
-- [ ] Images AVIF/WebP with srcset
-- [ ] Below-fold lazy loaded
-- [ ] JS bundle < 200KB gzipped
-
-## Responsive
-- [ ] 320px minimum supported
-- [ ] Touch targets ≥ 44x44px
-- [ ] 16px base font
-```
+**Mobile-first implementation:** Write base styles for mobile, use `md:` and `lg:` for enhancements.
 
 ---
 
-## 6. Code Scaffold
+## Quick Reference
 
-### Stack
-- **Next.js 14+** App Router
-- **Tailwind CSS v4** with `@theme` directive
-- **GSAP + @gsap/react + ScrollTrigger**
-- **TypeScript** strict mode
-- **Lenis** for smooth scroll (optional)
-- **next-view-transitions** for page transitions (optional)
+### Vibes → Clusters Cheat Sheet
+| If the brief feels... | Use cluster... |
+|-----------------------|----------------|
+| Clean, techy, restrained | minimal-saas |
+| Dramatic, dark, immersive | cinematic-hero |
+| Magazine, content-rich | editorial-magazine |
+| Fun, colorful, energetic | playful-brand |
+| Futuristic, gradient, glassy | futuristic-tech |
+| Elegant, slow, refined | luxury-premium |
+| Raw, exposed, anti-design | brutal-raw |
+| Warm, handmade, organic | artisanal-craft |
+| Boundary-pushing, weird | experimental-art |
+| Data-forward, systematic | technical-data |
+| Product-focused, Apple-like | product-hero |
+| Case studies, work-forward | agency-portfolio |
 
-### Key Dependencies
-```json
-{
-  "dependencies": {
-    "next": "^14.2.0",
-    "react": "^18.3.0",
-    "gsap": "^3.12.5",
-    "@gsap/react": "^2.1.1",
-    "lenis": "^1.0.0"
-  },
-  "devDependencies": {
-    "tailwindcss": "^4.0.0",
-    "@tailwindcss/postcss": "^4.0.0",
-    "typescript": "^5.6.0"
-  }
-}
-```
+### Type Pairings Cheat Sheet
+| Vibe | Display | Body |
+|------|---------|------|
+| luxury | Cormorant, Playfair | Inter, Söhne |
+| minimal | Geist, Inter | Geist, Inter |
+| editorial | Fraunces, Newsreader | Source Serif, Lora |
+| playful | Bricolage Grotesque, Satoshi | DM Sans, Nunito |
+| brutal | JetBrains Mono, Space Grotesk | Space Grotesk |
+| futuristic | Clash Display, Syne | Inter, Outfit |
+| cinematic | Bebas Neue, Oswald | Inter, Manrope |
 
-### Implementation Notes
-
-1. **Inject TOKENS.json → globals.css** — Output values as CSS variables under `@theme { }`
-2. **GSAP Context** — Wrap animations in `gsap.context()` for React cleanup
-3. **Reduced Motion** — Check `prefers-reduced-motion`; replace with instant states
-4. **Skip Link** — `<a href="#main" class="sr-only focus:not-sr-only">Skip to content</a>`
-5. **Dark/Light** — Toggle `.dark` class on `<html>`, persist to localStorage
-
-### User Must Do (Manual Steps)
-
-1. **Initialize project:** `npx create-next-app@latest [name] --typescript --tailwind --app`
-2. **Install deps:** `npm install gsap @gsap/react lenis`
-3. **Source assets:** Hero media, product photography, icons per ASSETS.md
-4. **Add fonts:** Download from Google Fonts or license commercial fonts
-5. **Run dev server:** `npm run dev` and iterate
-6. **Validate:** Run Lighthouse, check contrast, test reduced motion
+### Color Mode Guidance
+| Mode | When | Palette Approach |
+|------|------|------------------|
+| Dark | cinematic, luxury, futuristic | Deep bg (#0a-#12), light fg, accent pops |
+| Light | editorial, minimal, artisanal | Off-white bg (#f5-#fff), dark fg, muted accent |
 
 ---
 
-## 7. Anti-Patterns
+## Supporting Files
 
-1. **Generic SaaS Templates** — No cookie-cutter hero + 3 features + pricing
-2. **Motion for Motion's Sake** — Every animation must guide attention or provide feedback
-3. **Ignoring Accessibility** — Reduced motion mandatory, contrast WCAG AA, skip links
-4. **Stock Photo Overload** — Max 3-5, prefer illustration/3D/custom
-5. **Typography Neglect** — Type is 80% of design, invest in hierarchy
-6. **Scroll Hijacking** — Never break native scroll; scrub fine, takeover not
-7. **Performance Ignorance** — LCP > 2.5s is failure
-
----
-
-## 8. Output Checklist
-
-Before completing, verify all artifacts exist:
-
-- [ ] **DIRECTION.md** — Creative direction with thesis, colors, typography
-- [ ] **MOTION.md** — Motion system with timing, easing, GSAP patterns
-- [ ] **ASSETS.md** — Asset requirements and specifications
-- [ ] **PAGE_PLAN.md** — Full page structure with sections
-- [ ] **TOKENS.json** — Design tokens for CSS injection
-- [ ] **QA.md** — Accessibility, performance checklist
-- [ ] **Code scaffold** — Next.js project with tokens applied
-
-Place all artifacts in: `runs/[project-name]-[timestamp]/`
+| File | Purpose |
+|------|---------|
+| [concepts/THESIS.md](concepts/THESIS.md) | Developing singular concept from brief |
+| [concepts/SIGNATURE.md](concepts/SIGNATURE.md) | Designing the memorable moment |
+| [concepts/TENSION.md](concepts/TENSION.md) | Restraint and surprise principles |
+| [taste/TYPOGRAPHY.md](taste/TYPOGRAPHY.md) | Type-first design thinking |
+| [taste/EVALUATION.md](taste/EVALUATION.md) | Self-critique rubric |
+| [reference/VIBES.md](reference/VIBES.md) | Vibe and motion vocabulary |
+| [reference/CLUSTERS.md](reference/CLUSTERS.md) | Style clusters with exemplars |
+| [reference/CORPUS.md](reference/CORPUS.md) | 30+ Awwwards winners with analysis |
+| [examples/MAISON.md](examples/MAISON.md) | Worked example: luxury watch brand |
+| [examples/FLUX.md](examples/FLUX.md) | Worked example: developer tool |
+| [examples/BOUNCE.md](examples/BOUNCE.md) | Worked example: playful consumer app |
