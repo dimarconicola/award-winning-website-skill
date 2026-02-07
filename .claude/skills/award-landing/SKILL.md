@@ -120,25 +120,10 @@ The fastest sites feel expensive. LCP < 1.5s, instant interactions, 60fps scroll
 
 ---
 
-## Motion Patterns (Concepts Only)
+## Motion Patterns
 
-Use these pattern names. Implementation is your domain.
-
-| Pattern | What It Does | When to Use |
-|---------|--------------|-------------|
-| Smooth Scroll | Lerp-based scroll with easing, replaces native scroll | Foundation for premium feel |
-| Split Text | Break text into chars/words/lines, animate individually | Kinetic headlines, character-by-character reveals |
-| Scroll Pin | Pin element in viewport while scrolling through content inside it | Scroll-driven reveals, Apple-style product sections |
-| Parallax Layers | Elements move at different speeds relative to scroll | Depth, multi-speed backgrounds |
-| Magnetic Hover | Element follows cursor within radius, snaps back on leave | Cursor-led CTAs, playful buttons |
-| Clip-Path Reveal | Animate clip-path from hidden to visible | Dramatic text entrances, wipe effects |
-| Image Reveal | Scale from 0 + clip-path, parent overflow hidden | Dramatic image entrances with scale |
-| Horizontal Scroll | Vertical scroll drives horizontal container movement | Galleries, case study showcases |
-| Infinite Marquee | Seamless looping horizontal scroll, duplicated content | Logo bars, scrolling testimonials |
-| Scroll Video | Scrub video frames based on scroll position | Frame-by-frame product reveals |
-| Custom Cursor | Replace default cursor with branded element that follows mouse | Signature cursor that reflects brand |
-| View Transitions | Shared-element morphing between pages via View Transitions API | Cross-page cinematic transitions |
-
+> See [reference/MOTION.md](reference/MOTION.md) for the full pattern vocabulary (Smooth Scroll, Split Text, Scroll Pin, Parallax, Magnetic Hover, Clip-Path Reveal, etc.).
+>
 > Always respect `prefers-reduced-motion`. Replace with instant states.
 
 ---
@@ -188,6 +173,19 @@ Speed is luxury. Slow shatters the illusion.
 | WebGL/3D needed | Lazy load, show fallback first |
 
 **Loading as branding:** If load is unavoidable, brand it. Animated logo, progress bar with personality.
+
+### Performance Validation Loop
+
+After generating code, run this loop:
+
+1. Build production: `npm run build`
+2. Audit: `npx lighthouse http://localhost:3000 --view --preset=desktop`
+3. Check:
+   - LCP < 1.5s? If not → optimize hero assets, preload fonts
+   - CLS < 0.1? If not → set explicit dimensions on images/embeds
+   - 60fps scroll? If not → reduce ScrollTrigger count, audit `will-change`
+4. Fix issues and **repeat from step 2** until all targets pass
+5. Only then consider the build complete
 
 ---
 
@@ -306,38 +304,7 @@ app/
 
 ## Quick Reference
 
-### Vibes → Clusters Cheat Sheet
-| If the brief feels... | Use cluster... |
-|-----------------------|----------------|
-| Clean, techy, restrained | minimal-saas |
-| Dramatic, dark, immersive | cinematic-hero |
-| Magazine, content-rich | editorial-magazine |
-| Fun, colorful, energetic | playful-brand |
-| Futuristic, gradient, glassy | futuristic-tech |
-| Elegant, slow, refined | luxury-premium |
-| Raw, exposed, anti-design | brutal-raw |
-| Warm, handmade, organic | artisanal-craft |
-| Boundary-pushing, weird | experimental-art |
-| Data-forward, systematic | technical-data |
-| Product-focused, Apple-like | product-hero |
-| Case studies, work-forward | agency-portfolio |
-
-### Type Pairings Cheat Sheet
-| Vibe | Display | Body |
-|------|---------|------|
-| luxury | Cormorant, Playfair | Inter, Söhne |
-| minimal | Geist, Inter | Geist, Inter |
-| editorial | Fraunces, Newsreader | Source Serif, Lora |
-| playful | Bricolage Grotesque, Satoshi | DM Sans, Nunito |
-| brutal | JetBrains Mono, Space Grotesk | Space Grotesk |
-| futuristic | Clash Display, Syne | Inter, Outfit |
-| cinematic | Bebas Neue, Oswald | Inter, Manrope |
-
-### Color Mode Guidance
-| Mode | When | Palette Approach |
-|------|------|------------------|
-| Dark | cinematic, luxury, futuristic | Deep bg (#0a-#12), light fg, accent pops |
-| Light | editorial, minimal, artisanal | Off-white bg (#f5-#fff), dark fg, muted accent |
+> See [reference/CHEATSHEET.md](reference/CHEATSHEET.md) for Vibes→Clusters mapping, Type Pairings, and Color Mode guidance.
 
 ---
 
@@ -353,6 +320,8 @@ app/
 | [reference/VIBES.md](reference/VIBES.md) | Vibe and motion vocabulary |
 | [reference/CLUSTERS.md](reference/CLUSTERS.md) | Style clusters with exemplars |
 | [reference/CORPUS.md](reference/CORPUS.md) | 30+ Awwwards winners with analysis |
+| [reference/MOTION.md](reference/MOTION.md) | Motion pattern vocabulary |
+| [reference/CHEATSHEET.md](reference/CHEATSHEET.md) | Vibes→Clusters, Type Pairings, Color Mode |
 | [examples/MAISON.md](examples/MAISON.md) | Worked example: luxury watch brand |
 | [examples/FLUX.md](examples/FLUX.md) | Worked example: developer tool |
 | [examples/BOUNCE.md](examples/BOUNCE.md) | Worked example: playful consumer app |
